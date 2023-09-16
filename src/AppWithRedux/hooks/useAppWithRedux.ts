@@ -55,5 +55,16 @@ export const useAppWithRedux = () => {
         dispatch(action);
     }, [dispatch]);
 
-    return {todolists, tasks, removeTask, addTask, changeStatus, changeTaskTitle, changeFilter, removeTodolist, changeTodolistTitle, addTodolist   }
+    return {
+        todolists,
+        tasks,
+        removeTask,
+        addTask,
+        changeStatus,
+        changeTaskTitle,
+        changeFilter,
+        removeTodolist,
+        changeTodolistTitle,
+        addTodolist
+    }
 }
