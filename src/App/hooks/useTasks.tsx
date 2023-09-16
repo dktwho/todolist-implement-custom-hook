@@ -42,5 +42,17 @@ export const useTasks = () => {
             setTasks({...tasks});
         }
     }
-    return {tasks, setTasks, removeTask, addTask, changeStatus, changeTaskTitle}
+
+    function removeTaskForTodolists  (id: string) {
+        delete tasks[id];
+        setTasks({...tasks});
+    }
+
+    function addStateForNewTodolist (newTodoListId: string) {
+        setTasks({
+            ...tasks,
+            [newTodoListId]: []
+        })
+    }
+    return {tasks, setTasks, removeTask, addTask, changeStatus, changeTaskTitle, removeTaskForTodolists, addStateForNewTodolist}
 }

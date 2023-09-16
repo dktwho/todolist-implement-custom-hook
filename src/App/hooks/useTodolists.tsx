@@ -3,7 +3,9 @@ import {FilterValuesType, TodolistType} from "../App";
 import {todolistId1, todolistId2} from "../id-utils";
 import {v1} from "uuid";
 
-export const useTodolists = (tasks: any, setTasks: any) => {
+export const useTodolists = (
+    onTodolistRemoved: (id: string) => void,
+    onTodolistAdded: (id: string) => void) => {
     let [todolists, setTodolists] = useState<Array<TodolistType>>([
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
@@ -16,11 +18,12 @@ export const useTodolists = (tasks: any, setTasks: any) => {
             setTodolists([...todolists])
         }
     }
+
     function removeTodolist(id: string) {
         setTodolists(todolists.filter(tl => tl.id != id));
-        delete tasks[id];
-        setTasks({...tasks});
+        onTodolistRemoved(id)
     }
+
     function changeTodolistTitle(id: string, title: string) {
         const todolist = todolists.find(tl => tl.id === id);
         if (todolist) {
@@ -33,11 +36,8 @@ export const useTodolists = (tasks: any, setTasks: any) => {
         let newTodolistId = v1();
         let newTodolist: TodolistType = {id: newTodolistId, title: title, filter: 'all'};
         setTodolists([newTodolist, ...todolists]);
-        setTasks({
-            ...tasks,
-            [newTodolistId]: []
-        })
+        onTodolistAdded(newTodolistId)
     }
 
-    return {todolists, setTodolists, changeFilter, removeTodolist, changeTodolistTitle, addTodolist }
+    return {todolists, changeFilter, removeTodolist, changeTodolistTitle, addTodolist}
 }

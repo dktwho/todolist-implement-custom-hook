@@ -20,9 +20,23 @@ export type TasksStateType = {
 }
 
 function App() {
-    let {tasks, setTasks, removeTask, addTask, changeStatus, changeTaskTitle} = useTasks()
-    let {todolists, setTodolists, changeFilter, removeTodolist, changeTodolistTitle, addTodolist} = useTodolists(tasks, setTasks)
+    let {
+        tasks,
+        removeTask,
+        addTask,
+        changeStatus,
+        changeTaskTitle,
+        removeTaskForTodolists,
+        addStateForNewTodolist
+    } = useTasks()
 
+    let {
+        todolists,
+        changeFilter,
+        removeTodolist,
+        changeTodolistTitle,
+        addTodolist,
+    } = useTodolists(removeTaskForTodolists, addStateForNewTodolist)
 
     return (
         <div className="App">
