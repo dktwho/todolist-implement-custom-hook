@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
-import './App.css';
-import {TaskType, Todolist} from './Todolist';
+import React from 'react';
+import '../App.css';
+import {TaskType, Todolist} from '../Todolist';
 import {v1} from 'uuid';
-import {AddItemForm} from './AddItemForm';
+import {AddItemForm} from '../AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
+import {useTasks} from "./hooks/UseTasks";
+import {useTodolists} from "./hooks/UseTodolists";
 
 
 export type FilterValuesType = "all" | "active" | "completed";
@@ -18,36 +20,14 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-let todolistId1 = v1();
-let todolistId2 = v1();
 
-const useTodolists = () => {
-    let [todolists, setTodolists] = useState<Array<TodolistType>>([
-        {id: todolistId1, title: "What to learn", filter: "all"},
-        {id: todolistId2, title: "What to buy", filter: "all"}
-    ])
-    return [todolists, setTodolists ] as const
-}
-
-const useTasks = () => {
-    let [tasks, setTasks] = useState<TasksStateType>({
-        [todolistId1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true}
-        ],
-        [todolistId2]: [
-            {id: v1(), title: "Milk", isDone: true},
-            {id: v1(), title: "React Book", isDone: true}
-        ]
-    });
-    return [tasks, setTasks] as const
-}
 
 function App() {
 
 
     let [todolists, setTodolists] = useTodolists()
     let [tasks, setTasks] = useTasks()
+
     function removeTask(id: string, todolistId: string) {
         let todolistTasks = tasks[todolistId];
         tasks[todolistId] = todolistTasks.filter(t => t.id != id);
