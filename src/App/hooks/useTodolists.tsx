@@ -10,7 +10,6 @@ export const useTodolists = (
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
     ])
-
     function changeFilter(value: FilterValuesType, todolistId: string) {
         let todolist = todolists.find(tl => tl.id === todolistId);
         if (todolist) {
@@ -18,12 +17,10 @@ export const useTodolists = (
             setTodolists([...todolists])
         }
     }
-
     function removeTodolist(id: string) {
         setTodolists(todolists.filter(tl => tl.id != id));
         onTodolistRemoved(id)
     }
-
     function changeTodolistTitle(id: string, title: string) {
         const todolist = todolists.find(tl => tl.id === id);
         if (todolist) {
@@ -31,7 +28,6 @@ export const useTodolists = (
             setTodolists([...todolists]);
         }
     }
-
     function addTodolist(title: string) {
         let newTodolistId = v1();
         let newTodolist: TodolistType = {id: newTodolistId, title: title, filter: 'all'};

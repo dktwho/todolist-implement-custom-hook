@@ -20,12 +20,14 @@ export const useTasks = () => {
         tasks[todolistId] = todolistTasks.filter(t => t.id != id);
         setTasks({...tasks});
     }
+
     function addTask(title: string, todolistId: string) {
         let task = {id: v1(), title: title, isDone: false};
         let todolistTasks = tasks[todolistId];
         tasks[todolistId] = [task, ...todolistTasks];
         setTasks({...tasks});
     }
+
     function changeStatus(id: string, isDone: boolean, todolistId: string) {
         let todolistTasks = tasks[todolistId];
         let task = todolistTasks.find(t => t.id === id);
@@ -34,6 +36,7 @@ export const useTasks = () => {
             setTasks({...tasks});
         }
     }
+
     function changeTaskTitle(id: string, newTitle: string, todolistId: string) {
         let todolistTasks = tasks[todolistId];
         let task = todolistTasks.find(t => t.id === id);
@@ -43,16 +46,26 @@ export const useTasks = () => {
         }
     }
 
-    function removeTaskForTodolists  (id: string) {
+    function removeTaskForTodolists(id: string) {
         delete tasks[id];
         setTasks({...tasks});
     }
 
-    function addStateForNewTodolist (newTodoListId: string) {
+    function addStateForNewTodolist(newTodoListId: string) {
         setTasks({
             ...tasks,
             [newTodoListId]: []
         })
     }
-    return {tasks, setTasks, removeTask, addTask, changeStatus, changeTaskTitle, removeTaskForTodolists, addStateForNewTodolist}
+
+    return {
+        tasks,
+        setTasks,
+        removeTask,
+        addTask,
+        changeStatus,
+        changeTaskTitle,
+        removeTaskForTodolists,
+        addStateForNewTodolist
+    }
 }
